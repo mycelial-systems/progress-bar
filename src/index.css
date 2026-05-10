@@ -1,13 +1,6 @@
 :root {
-    --progress-bar-color: rgb(0, 255, 247);
+    --progress-bar-color: #0cb700;
     --progress: 0%;
-}
-
-/**
- * Don't show until JavaScript is instantiated
- */
-progress-bar:not(:defined) {
-    display: none;
 }
 
 progress-bar {
@@ -18,6 +11,13 @@ progress-bar {
     min-height: 10px;
     pointer-events: none;
     z-index: 9999;
+
+    /**
+     * Don't show until JavaScript is ready
+     */
+    &:not(:defined) {
+        display: none;
+    }
 
     & .progress-bar-fill {
         width: var(--progress);
