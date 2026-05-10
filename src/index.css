@@ -1,10 +1,29 @@
+:root {
+    --progress-bar-color: rgb(0, 255, 247);
+    --progress: 0%;
+}
+
 /**
  * Don't show until JavaScript is instantiated
  */
-{{component-name}}:not(:defined) {
-	display: none;
+progress-bar:not(:defined) {
+    display: none;
 }
 
-{{component-name}} {
-    background-color: red;
+progress-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    min-height: 10px;
+    pointer-events: none;
+    z-index: 9999;
+
+    & .progress-bar-fill {
+        width: var(--progress);
+        height: 100%;
+        min-height: 10px;
+        background-color: var(--progress-bar-color);
+        transition: width 120ms linear;
+    }
 }
