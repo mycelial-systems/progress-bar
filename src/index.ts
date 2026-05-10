@@ -1,97 +1,53 @@
 import { define } from '@substrate-system/web-component/util'
 import Debug from '@substrate-system/debug'
-const debug = Debug('{{component-name}}')
+const debug = Debug('progress-bar')
 
-// for docuement.querySelector
 declare global {
     interface HTMLElementTagNameMap {
-        '{{component-name}}': Example
+        'progress-bar':ProgressBar
     }
 }
 
-export class Example extends HTMLElement {
-    // Define the attributes to observe
-    // need this for `attributeChangedCallback`
-    static observedAttributes = ['example']
+export const TAG = 'progress-bar'
 
-    example:string|null
+export class ProgressBar extends HTMLElement {
+    static observedAttributes = ['progress']
+    static TAG = TAG
 
-    constructor () {
-        super()
-        const example = this.getAttribute('example')
-        this.example = example
+    // constructor () {
+    //     super()
+    // }
 
-        this.innerHTML = `<div>
-            <p>example</p>
-            <ul>
-                ${Array.from(this.children).filter(Boolean).map(node => {
-                    return `<li>${node.outerHTML}</li>`
-                }).join('')}
-            </ul>
-        </div>`
-    }
-
-    /**
-     * Handle 'example' attribute changes
-     * @see {@link https://gomakethings.com/how-to-detect-when-attributes-change-on-a-web-component/#organizing-your-code Go Make Things article}
-     *
-     * @param  {string} oldValue The old attribute value
-     * @param  {string} newValue The new attribute value
-     */
-    handleChange_example (oldValue:string, newValue:string) {
-        debug('handling example change', oldValue, newValue)
-
-        if (newValue === null) {
-            // [example] was removed
-        } else {
-            // set [example] attribute
+    connectedCallback () {
+        debug('connected')
+        if (!this.querySelector('.progress-bar-fill')) {
+            this.innerHTML = '<div class="progress-bar-fill"></div>'
         }
-    }
-
-    /**
-     * Runs when the value of an attribute is changed
-     *
-     * @param  {string} name     The attribute name
-     * @param  {string} oldValue The old attribute value
-     * @param  {string} newValue The new attribute value
-     */
-    attributeChangedCallback (name:string, oldValue:string, newValue:string) {
-        debug('an attribute changed', name)
-        const handler = this[`handleChange_${name}`];
-        (handler && handler(oldValue, newValue))
-        this.render()
+        this.applyProgress(this.getAttribute('progress'))
     }
 
     disconnectedCallback () {
         debug('disconnected')
     }
 
-    connectedCallback () {
-        debug('connected')
-
-        const observer = new MutationObserver(function (mutations) {
-            mutations.forEach((mutation) => {
-                if (mutation.addedNodes.length) {
-                    debug('Node added: ', mutation.addedNodes)
-                }
-            })
-        })
-
-        observer.observe(this, { childList: true })
-
-        this.render()
+    attributeChangedCallback (
+        name:string,
+        oldValue:string|null,
+        newValue:string|null
+    ) {
+        debug('attribute changed', name, oldValue, newValue)
+        if (name === 'progress') {
+            this.applyProgress(newValue)
+        }
     }
 
-    render () {
-        this.innerHTML = `<div>
-            <p>example</p>
-            <ul>
-                ${Array.from(this.children).filter(Boolean).map(node => {
-                    return `<li>${node.outerHTML}</li>`
-                }).join('')}
-            </ul>
-        </div>`
+    private applyProgress (raw:string|null) {
+        const n = raw === null ? 0 : Number(raw)
+        const clamped = Number.isFinite(n) ?
+            Math.min(100, Math.max(0, n)) :
+            0
+        this.style.setProperty('--progress', clamped + '%')
     }
 }
 
-define('{{component-name}}', Example)
+define(TAG, ProgressBar)
