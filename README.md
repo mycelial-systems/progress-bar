@@ -14,7 +14,26 @@ A web component for visual progress of some sort.
 [See a live demo](https://mycelial-systems.github.io/progress-bar/)
 
 <details><summary><h2>Contents</h2></summary>
+
 <!-- toc -->
+
+- [Install](#install)
+- [Example](#example)
+- [API](#api)
+  * [ESM](#esm)
+  * [Common JS](#common-js)
+  * [Attributes](#attributes)
+  * [Events](#events)
+- [CSS](#css)
+  * [Import CSS](#import-css)
+  * [Customize CSS via some variables](#customize-css-via-some-variables)
+- [Use](#use)
+  * [JS](#js)
+  * [HTML](#html)
+  * [pre-built](#pre-built)
+
+<!-- tocstop -->
+
 </details>
 
 ## Install
