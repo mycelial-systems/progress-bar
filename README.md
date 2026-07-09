@@ -105,6 +105,8 @@ import '@substrate-system/progress-bar'
 require('@substrate-system/progress-bar')
 ```
 
+## API
+
 ### Attributes
 
 #### `progress`
