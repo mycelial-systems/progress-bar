@@ -63,12 +63,12 @@ async function runFetch () {
             const { done, value } = await reader.read()
             if (done) break
             received += value.byteLength
-            if (total > 0) {
-                state.progress.value = (received / total) * 100
-            }
+            // update progress state
+            state.progress.value = (received / total) * 100
         }
 
         batch(() => {
+            // when we are down here, we are 100% done
             state.progress.value = 100
             state.fetchStatus.value = `done (${received} bytes)`
         })

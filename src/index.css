@@ -1,6 +1,7 @@
 :root {
-    --progress-bar-color: #0cb700;
+    --progress-bar-color: #29d;
     --progress: 0%;
+    --progress-height: 3px;
 }
 
 progress-bar {
@@ -8,7 +9,7 @@ progress-bar {
     top: 0;
     left: 0;
     width: 100%;
-    min-height: 10px;
+    height: var(--progress-height, 3px);
     pointer-events: none;
     z-index: 9999;
 
@@ -22,7 +23,6 @@ progress-bar {
     & .progress-bar-fill {
         width: var(--progress);
         height: 100%;
-        min-height: 10px;
         background-color: var(--progress-bar-color);
         transition: width 120ms linear;
     }

@@ -14,10 +14,6 @@ export class ProgressBar extends HTMLElement {
     static observedAttributes = ['progress']
     static TAG = TAG
 
-    // constructor () {
-    //     super()
-    // }
-
     connectedCallback () {
         debug('connected')
         if (!this.querySelector('.progress-bar-fill')) {
