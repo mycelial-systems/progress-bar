@@ -22,6 +22,7 @@ A web component for visual progress of some sort.
 - [Modules](#modules)
   * [ESM](#esm)
   * [Common JS](#common-js)
+- [API](#api)
   * [Attributes](#attributes)
   * [Events](#events)
 - [CSS](#css)
